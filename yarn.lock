@@ -1070,6 +1070,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/grecaptcha@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@types/grecaptcha@npm:3.0.9"
+  checksum: 10c0/65986cd1d060309ca0eaa1ab5a758ba0203f09c20941534d05b5dfe0fb6fd258ea0e20fa77980d5abf741ba98846e874fd7d2f883aead65dedfa56b278a811e9
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -4887,6 +4894,61 @@ __metadata:
   languageName: node
   linkType: hard
 
+"my-portfolio@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "my-portfolio@workspace:."
+  dependencies:
+    "@emailjs/browser": "npm:^4.4.1"
+    "@headlessui/react": "npm:^1.7.16"
+    "@heroicons/react": "npm:^2.0.18"
+    "@next/eslint-plugin-next": "npm:^14.0.3"
+    "@tailwindcss/forms": "npm:^0.5.4"
+    "@tailwindcss/typography": "npm:^0.5.9"
+    "@types/gh-pages": "npm:^6"
+    "@types/grecaptcha": "npm:^3.0.9"
+    "@types/node": "npm:^20.4.5"
+    "@types/react": "npm:^18.2.18"
+    "@types/tailwindcss": "npm:^3.1.0"
+    "@types/webpack-env": "npm:^1.18.1"
+    "@typescript-eslint/eslint-plugin": "npm:^6.2.1"
+    "@typescript-eslint/parser": "npm:^6.2.1"
+    autoprefixer: "npm:10.4.16"
+    classnames: "npm:^2.3.2"
+    cssnano: "npm:^6.0.1"
+    emailjs: "npm:^4.0.3"
+    eslint: "npm:^8.46.0"
+    eslint-config-next: "npm:^14.0.3"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-import: "npm:^2.28.0"
+    eslint-plugin-jsx-a11y: "npm:^6.7.1"
+    eslint-plugin-module-resolver: "npm:^1.5.0"
+    eslint-plugin-monorepo: "npm:^0.3.2"
+    eslint-plugin-react: "npm:^7.33.1"
+    eslint-plugin-react-hooks: "npm:^4.6.0"
+    eslint-plugin-react-memo: "npm:^0.0.3"
+    eslint-plugin-react-native: "npm:^4.0.0"
+    eslint-plugin-simple-import-sort: "npm:^10.0.0"
+    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
+    gh-pages: "npm:^6.3.0"
+    next: "npm:^14.0.3"
+    postcss: "npm:^8.4.27"
+    postcss-preset-env: "npm:^9.1.0"
+    prettier: "npm:^3.0.0"
+    prettier-plugin-tailwindcss: "npm:^0.5.7"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    sass: "npm:^1.64.2"
+    sort-package-json: "npm:^2.5.1"
+    stylelint: "npm:^15.10.2"
+    stylelint-config-recommended: "npm:^13.0.0"
+    stylelint-order: "npm:^6.0.3"
+    stylelint-prettier: "npm:^4.0.2"
+    tailwindcss: "npm:^3.3.3"
+    ts-pattern: "npm:^5.0.4"
+    typescript: "npm:5.3.2"
+  languageName: unknown
+  linkType: soft
+
 "mz@npm:^2.7.0":
   version: 2.7.0
   resolution: "mz@npm:2.7.0"
@@ -6347,60 +6409,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resume-template@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-resume-template@workspace:."
-  dependencies:
-    "@emailjs/browser": "npm:^4.4.1"
-    "@headlessui/react": "npm:^1.7.16"
-    "@heroicons/react": "npm:^2.0.18"
-    "@next/eslint-plugin-next": "npm:^14.0.3"
-    "@tailwindcss/forms": "npm:^0.5.4"
-    "@tailwindcss/typography": "npm:^0.5.9"
-    "@types/gh-pages": "npm:^6"
-    "@types/node": "npm:^20.4.5"
-    "@types/react": "npm:^18.2.18"
-    "@types/tailwindcss": "npm:^3.1.0"
-    "@types/webpack-env": "npm:^1.18.1"
-    "@typescript-eslint/eslint-plugin": "npm:^6.2.1"
-    "@typescript-eslint/parser": "npm:^6.2.1"
-    autoprefixer: "npm:10.4.16"
-    classnames: "npm:^2.3.2"
-    cssnano: "npm:^6.0.1"
-    emailjs: "npm:^4.0.3"
-    eslint: "npm:^8.46.0"
-    eslint-config-next: "npm:^14.0.3"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-import: "npm:^2.28.0"
-    eslint-plugin-jsx-a11y: "npm:^6.7.1"
-    eslint-plugin-module-resolver: "npm:^1.5.0"
-    eslint-plugin-monorepo: "npm:^0.3.2"
-    eslint-plugin-react: "npm:^7.33.1"
-    eslint-plugin-react-hooks: "npm:^4.6.0"
-    eslint-plugin-react-memo: "npm:^0.0.3"
-    eslint-plugin-react-native: "npm:^4.0.0"
-    eslint-plugin-simple-import-sort: "npm:^10.0.0"
-    eslint-plugin-sort-keys-fix: "npm:^1.1.2"
-    gh-pages: "npm:^6.3.0"
-    next: "npm:^14.0.3"
-    postcss: "npm:^8.4.27"
-    postcss-preset-env: "npm:^9.1.0"
-    prettier: "npm:^3.0.0"
-    prettier-plugin-tailwindcss: "npm:^0.5.7"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    sass: "npm:^1.64.2"
-    sort-package-json: "npm:^2.5.1"
-    stylelint: "npm:^15.10.2"
-    stylelint-config-recommended: "npm:^13.0.0"
-    stylelint-order: "npm:^6.0.3"
-    stylelint-prettier: "npm:^4.0.2"
-    tailwindcss: "npm:^3.3.3"
-    ts-pattern: "npm:^5.0.4"
-    typescript: "npm:5.3.2"
-  languageName: unknown
-  linkType: soft
-
 "react@npm:^18.2.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -7316,9 +7324,9 @@ __metadata:
   linkType: hard
 
 "tailwindcss@npm:*":
-  version: 4.1.12
-  resolution: "tailwindcss@npm:4.1.12"
-  checksum: 10c0/0e43375d8de91e1c97a60ed7855f1bf02d5cac61a909439afd54462604862ee71706d812c0447a639f2ef98051a8817840b3df6847c7a1ed015f7a910240ffef
+  version: 4.1.13
+  resolution: "tailwindcss@npm:4.1.13"
+  checksum: 10c0/2b80b4b11463818fd16063b7cc13fd0f6e18d7e3c3e54bbdc98742981be807884addb1dd657bc6816cb4085197b7d583f5064f619e1039a54221ffa36b7ed4c0
   languageName: node
   linkType: hard
 

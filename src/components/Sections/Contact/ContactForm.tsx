@@ -1,20 +1,20 @@
-import { FC, memo, useCallback, useMemo, useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import {FC, memo, useCallback, useEffect,useMemo, useState} from 'react';
+
+const RECAPTCHA_SITE_KEY = '6LeJKb4rAAAAAJ55PNa6U3Xrn_kMRdBQDFUoDDs1';
 
 interface FormData {
+  [key: string]: string;
   name: string;
   email: string;
   message: string;
-  [key: string]: string;
 }
 
 declare global {
   interface Window {
-    grecaptcha: any;
+    grecaptcha?: ReCaptchaV2.ReCaptcha;
   }
 }
-
-const RECAPTCHA_SITE_KEY = '6LeJKb4rAAAAAJ55PNa6U3Xrn_kMRdBQDFUoDDs1';
 
 const ContactForm: FC = memo(() => {
   const defaultData = useMemo(
@@ -35,7 +35,7 @@ const ContactForm: FC = memo(() => {
   // Wait for grecaptcha to be ready
   useEffect(() => {
     const interval = setInterval(() => {
-      if (window.grecaptcha && window.grecaptcha.execute) {
+      if (window.grecaptcha) {
         setGrecaptchaReady(true);
         clearInterval(interval);
       }
@@ -48,8 +48,8 @@ const ContactForm: FC = memo(() => {
     <T extends HTMLInputElement | HTMLTextAreaElement>(
       event: React.ChangeEvent<T>
     ) => {
-      const { name, value } = event.target;
-      setData(prev => ({ ...prev, [name]: value }));
+      const {name, value} = event.target;
+      setData(prev => ({...prev, [name]: value}));
     },
     []
   );
@@ -67,7 +67,7 @@ const ContactForm: FC = memo(() => {
       setErrorMessage('');
 
       try {
-        const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit' });
+        const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'submit'});
 
         if (!token) {
           // Stop sending the email because reCAPTCHA failed
@@ -78,7 +78,7 @@ const ContactForm: FC = memo(() => {
         }
 
         // Token is valid — safe to send email
-        const dataWithRecaptcha = { ...data, 'g-recaptcha-response': token };
+        const dataWithRecaptcha = {...data, 'g-recaptcha-response': token};
 
         await emailjs.send(
           'service_baukuoq',
@@ -89,10 +89,14 @@ const ContactForm: FC = memo(() => {
 
         setStatus('success');
         setData(defaultData);
-      } catch (error: any) {
-        console.error('EmailJS error:', error);
-        setStatus('error');
-        setErrorMessage(error?.text || 'Failed to send message.');
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error(error.message);
+          setErrorMessage(error.message);
+        } else {
+          console.error(error);
+          setErrorMessage('Failed to send message.');
+        }
       } finally {
         setLoading(false);
       }
@@ -107,8 +111,8 @@ const ContactForm: FC = memo(() => {
   return (
     <form
       className="grid min-h-[320px] grid-cols-1 gap-y-4"
-      onSubmit={handleSendMessage}
       data-emailjs-recaptcha={RECAPTCHA_SITE_KEY}
+      onSubmit={handleSendMessage}
     >
       <input
         className={inputClasses}
@@ -141,8 +145,8 @@ const ContactForm: FC = memo(() => {
         aria-label="Submit contact form"
         className={`w-max rounded-full border-2 border-accent px-4 py-2 text-sm font-medium text-white shadow-md outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-stone-800 ${loading || !grecaptchaReady ? 'bg-stone-600 cursor-not-allowed' : 'bg-stone-900 hover:bg-stone-800'
           }`}
-        type="submit"
         disabled={loading || !grecaptchaReady}
+        type="submit"
       >
         {loading ? 'Sending...' : 'Send Message'}
       </button>

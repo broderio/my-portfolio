@@ -97,10 +97,10 @@ export const aboutData: About = {
   enjoy traveling to national parks, watching Lion's football, and making homemade bagels.
   `,
   aboutItems: [
-    { label: 'Location', text: 'Ann Arbor, MI', Icon: MapIcon },
-    { label: 'Age', text: '23', Icon: CalendarIcon },
-    { label: 'Study', text: 'University of Michigan', Icon: AcademicCapIcon },
-    { label: 'Employment', text: 'University of Michigan', Icon: BuildingOffice2Icon },
+    {label: 'Location', text: 'Ann Arbor, MI', Icon: MapIcon},
+    {label: 'Age', text: '23', Icon: CalendarIcon},
+    {label: 'Study', text: 'University of Michigan', Icon: AcademicCapIcon},
+    {label: 'Employment', text: 'University of Michigan', Icon: BuildingOffice2Icon},
   ],
 };
 
@@ -111,31 +111,31 @@ export const skills: SkillGroup[] = [
   {
     name: 'Systems & Low-Level Programming',
     skills: [
-      { name: 'C', level: 10 },
-      { name: 'C++', level: 10 },
-      { name: 'Rust', level: 6 },
-      { name: 'Linux', level: 10 },
-      { name: 'PCB Design', level: 7 },
+      {name: 'C', level: 10},
+      {name: 'C++', level: 10},
+      {name: 'Rust', level: 6},
+      {name: 'Linux', level: 10},
+      {name: 'PCB Design', level: 7},
     ],
   },
   {
     name: 'High-Level Programming & Scripting',
     skills: [
-      { name: 'Python', level: 10 },
-      { name: 'Javascript', level: 8 },
-      { name: 'TypeScript', level: 8 },
-      { name: 'C#', level: 7 },
-      { name: 'MATLAB', level: 6 },
+      {name: 'Python', level: 10},
+      {name: 'Javascript', level: 8},
+      {name: 'TypeScript', level: 8},
+      {name: 'C#', level: 7},
+      {name: 'MATLAB', level: 6},
     ],
   },
   {
     name: 'Data & Robotics',
     skills: [
-      { name: 'Data Pipeline Optimization', level: 9 },
-      { name: 'SLAM', level: 8 },
-      { name: 'Computer Vision', level: 7 },
-      { name: 'GPU Programming', level: 7 },
-      { name: 'Digital Signal Processing', level: 6 },
+      {name: 'Data Pipeline Optimization', level: 9},
+      {name: 'SLAM', level: 8},
+      {name: 'Computer Vision', level: 7},
+      {name: 'GPU Programming', level: 7},
+      {name: 'Digital Signal Processing', level: 6},
     ],
   }
 ];
@@ -335,8 +335,8 @@ export const contact: ContactSection = {
  * Social items
  */
 export const socialLinks: Social[] = [
-  { label: 'Github', Icon: GithubIcon, href: 'https://github.com/broderio' },
-  { label: 'LinkedIn', Icon: LinkedInIcon, href: 'https://www.linkedin.com/in/broderick-riopelle/' },
-  { label: 'Instagram', Icon: InstagramIcon, href: 'https://www.instagram.com/broderick.riopelle/' },
-  { label: 'X', Icon: XIcon, href: 'https://x.com/broderickr00' },
+  {label: 'Github', Icon: GithubIcon, href: 'https://github.com/broderio'},
+  {label: 'LinkedIn', Icon: LinkedInIcon, href: 'https://www.linkedin.com/in/broderick-riopelle/'},
+  {label: 'Instagram', Icon: InstagramIcon, href: 'https://www.instagram.com/broderick.riopelle/'},
+  {label: 'X', Icon: XIcon, href: 'https://x.com/broderickr00'},
 ];

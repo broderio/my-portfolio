@@ -1,5 +1,5 @@
 {
-  "name": "react-resume-template",
+  "name": "my-portfolio",
   "version": "2.0.0",
   "private": true,
   "scripts": {
@@ -29,6 +29,7 @@
     "@tailwindcss/forms": "^0.5.4",
     "@tailwindcss/typography": "^0.5.9",
     "@types/gh-pages": "^6",
+    "@types/grecaptcha": "^3.0.9",
     "@types/node": "^20.4.5",
     "@types/react": "^18.2.18",
     "@types/tailwindcss": "^3.1.0",

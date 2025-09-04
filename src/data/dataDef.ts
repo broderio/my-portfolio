@@ -7,14 +7,14 @@ export interface HomepageMeta {
   title: string;
   description: string;
   ogImageUrl?: string;
-  twitterCardType?: 'summary' | 'summary_large';
-  twitterTitle?: string;
-  twitterSite?: string;
-  twitterCreator?: string;
-  twitterDomain?: string;
-  twitterUrl?: string;
-  twitterDescription?: string;
-  twitterImageUrl?: string;
+  xCardType?: 'summary' | 'summary_large';
+  xTitle?: string;
+  xSite?: string;
+  xCreator?: string;
+  xDomain?: string;
+  xUrl?: string;
+  xDescription?: string;
+  xImageUrl?: string;
 }
 
 /**
@@ -94,20 +94,6 @@ export interface TimelineItem {
 }
 
 /**
- * Testimonial section
- */
-export interface TestimonialSection {
-  imageSrc?: string | StaticImageData;
-  testimonials: Testimonial[];
-}
-
-export interface Testimonial {
-  image?: string;
-  name: string;
-  text: string;
-}
-
-/**
  * Contact section
  */
 export interface ContactSection {
@@ -123,7 +109,7 @@ export const ContactType = {
   Github: 'Github',
   LinkedIn: 'LinkedIn',
   Facebook: 'Facebook',
-  Twitter: 'Twitter',
+  X: 'x',
   Instagram: 'Instagram',
 } as const;
 

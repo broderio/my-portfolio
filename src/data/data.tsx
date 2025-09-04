@@ -3,17 +3,14 @@ import {
   ArrowDownTrayIcon,
   BuildingOffice2Icon,
   CalendarIcon,
-  FlagIcon,
   MapIcon,
-  SparklesIcon,
 } from '@heroicons/react/24/outline';
 
 import GithubIcon from '../components/Icon/GithubIcon';
 import InstagramIcon from '../components/Icon/InstagramIcon';
 import LinkedInIcon from '../components/Icon/LinkedInIcon';
-import StackOverflowIcon from '../components/Icon/StackOverflowIcon';
-import TwitterIcon from '../components/Icon/TwitterIcon';
-import heroImage from '../images/header-background.webp';
+import XIcon from '../components/Icon/XIcon';
+import heroImage from '../images/header-background.jpg';
 import porfolioImage1 from '../images/portfolio/portfolio-1.jpg';
 import porfolioImage2 from '../images/portfolio/portfolio-2.jpg';
 import porfolioImage3 from '../images/portfolio/portfolio-3.jpg';
@@ -26,7 +23,6 @@ import porfolioImage9 from '../images/portfolio/portfolio-9.jpg';
 import porfolioImage10 from '../images/portfolio/portfolio-10.jpg';
 import porfolioImage11 from '../images/portfolio/portfolio-11.jpg';
 import profilepic from '../images/profilepic.jpg';
-import testimonialImage from '../images/testimonial.webp';
 import {
   About,
   ContactSection,
@@ -36,7 +32,6 @@ import {
   PortfolioItem,
   SkillGroup,
   Social,
-  TestimonialSection,
   TimelineItem,
 } from './dataDef';
 
@@ -44,8 +39,8 @@ import {
  * Page meta data
  */
 export const homePageMeta: HomepageMeta = {
-  title: 'React Resume Template',
-  description: "Example site built with Tim Baker's react resume template",
+  title: 'Broderick Riopelle Personal Website',
+  description: "The personal website of Broderick Riopelle",
 };
 
 /**
@@ -59,7 +54,6 @@ export const SectionId = {
   Resume: 'resume',
   Skills: 'skills',
   Stats: 'stats',
-  Testimonials: 'testimonials',
 } as const;
 
 export type SectionId = (typeof SectionId)[keyof typeof SectionId];
@@ -69,18 +63,13 @@ export type SectionId = (typeof SectionId)[keyof typeof SectionId];
  */
 export const heroData: Hero = {
   imageSrc: heroImage,
-  name: `I'm Tim Baker.`,
+  name: `I'm Broderick Riopelle`,
   description: (
     <>
       <p className="prose-sm text-stone-200 sm:prose-base lg:prose-lg">
-        I'm a Victoria based <strong className="text-stone-100">Full Stack Software Engineer</strong>, currently working
-        at <strong className="text-stone-100">Instant Domains</strong> helping build a modern, mobile-first, domain
-        registrar and site builder.
-      </p>
-      <p className="prose-sm text-stone-200 sm:prose-base lg:prose-lg">
-        In my free time time, you can catch me training in <strong className="text-stone-100">Muay Thai</strong>,
-        plucking my <strong className="text-stone-100">banjo</strong>, or exploring beautiful{' '}
-        <strong className="text-stone-100">Vancouver Island</strong>.
+        I'm an Ann Arbor based <strong className="text-stone-100">Robotics Engineer</strong>, currently working
+        at the <strong className="text-stone-100">University of Michigan</strong> helping build open-source,
+        interoperable software to support undergraduate robotics education.
       </p>
     </>
   ),
@@ -104,16 +93,14 @@ export const heroData: Hero = {
  */
 export const aboutData: About = {
   profileImageSrc: profilepic,
-  description: `Use this bio section as your way of describing yourself and saying what you do, what technologies you like
-  to use or feel most comfortable with, describing your personality, or whatever else you feel like throwing
-  in.`,
+  description: `I'm an engineer interested in developing impactful solutions to help uplift the communities around me. I
+  enjoy traveling to national parks, watching Lion's football, and making homemade bagels.
+  `,
   aboutItems: [
-    {label: 'Location', text: 'Victoria, BC', Icon: MapIcon},
-    {label: 'Age', text: '29', Icon: CalendarIcon},
-    {label: 'Nationality', text: 'Canadian / Irish', Icon: FlagIcon},
-    {label: 'Interests', text: 'Motorcycles, Muay Thai, Banjos', Icon: SparklesIcon},
-    {label: 'Study', text: 'University of Victoria', Icon: AcademicCapIcon},
-    {label: 'Employment', text: 'Instant Domains, inc.', Icon: BuildingOffice2Icon},
+    { label: 'Location', text: 'Ann Arbor, MI', Icon: MapIcon },
+    { label: 'Age', text: '23', Icon: CalendarIcon },
+    { label: 'Study', text: 'University of Michigan', Icon: AcademicCapIcon },
+    { label: 'Employment', text: 'University of Michigan', Icon: BuildingOffice2Icon },
   ],
 };
 
@@ -122,74 +109,37 @@ export const aboutData: About = {
  */
 export const skills: SkillGroup[] = [
   {
-    name: 'Spoken languages',
+    name: 'Systems & Low-Level Programming',
     skills: [
-      {
-        name: 'English',
-        level: 10,
-      },
-      {
-        name: 'French',
-        level: 4,
-      },
-      {
-        name: 'Spanish',
-        level: 3,
-      },
+      { name: 'C', level: 10 },
+      { name: 'C++', level: 10 },
+      { name: 'Rust', level: 6 },
+      { name: 'Linux', level: 10 },
+      { name: 'PCB Design', level: 7 },
     ],
   },
   {
-    name: 'Frontend development',
+    name: 'High-Level Programming & Scripting',
     skills: [
-      {
-        name: 'React',
-        level: 9,
-      },
-      {
-        name: 'Typescript',
-        level: 7,
-      },
-      {
-        name: 'GraphQL',
-        level: 6,
-      },
+      { name: 'Python', level: 10 },
+      { name: 'Javascript', level: 8 },
+      { name: 'TypeScript', level: 8 },
+      { name: 'C#', level: 7 },
+      { name: 'MATLAB', level: 6 },
     ],
   },
   {
-    name: 'Backend development',
+    name: 'Data & Robotics',
     skills: [
-      {
-        name: 'Node.js',
-        level: 8,
-      },
-      {
-        name: 'Rust',
-        level: 5,
-      },
-      {
-        name: 'Golang',
-        level: 4,
-      },
+      { name: 'Data Pipeline Optimization', level: 9 },
+      { name: 'SLAM', level: 8 },
+      { name: 'Computer Vision', level: 7 },
+      { name: 'GPU Programming', level: 7 },
+      { name: 'Digital Signal Processing', level: 6 },
     ],
-  },
-  {
-    name: 'Mobile development',
-    skills: [
-      {
-        name: 'React Native',
-        level: 9,
-      },
-      {
-        name: 'Flutter',
-        level: 4,
-      },
-      {
-        name: 'Swift',
-        level: 3,
-      },
-    ],
-  },
+  }
 ];
+
 
 /**
  * Portfolio section
@@ -268,67 +218,92 @@ export const portfolioItems: PortfolioItem[] = [
  */
 export const education: TimelineItem[] = [
   {
-    date: 'April 2007',
-    location: 'Clown college',
-    title: 'Masters in Beer tasting',
-    content: <p>Describe your experience at school, what you learned, what useful skills you have acquired etc.</p>,
-  },
-  {
-    date: 'March 2003',
-    location: 'School of Business',
-    title: 'What did you study 101',
-    content: <p>Describe your experience at school, what you learned, what useful skills you have acquired etc.</p>,
-  },
+    date: 'May 2024',
+    location: 'University of Michigan',
+    title: 'BSE in Computer Engineering',
+    content: <p>I attended the University of Michigan from August 2020 through May 2024. My coursework focused on
+      embedded systems, computer vision, and autonomous robotics. I was a member of the Perot Jain TechLab at MCity
+      2023 cohort and the Michigander EV & Mobility Scholars Program.
+    </p>,
+  }
 ];
+
+// ### Software Engineer Intern, Link Engineering <span class="spacer"></span> May 2022 &mdash; April 2023
+// - Integrated support for Python script uploads for custom analytics on Link's database platform using IronPython
+// - Constructed a TypeScript linear algebra library tailored for computer graphics applications
+// - Developed a flexible CSV to Link data format conversion API, enhancing the database's usability and accommodating diverse customer datasets
+
+// Technologies: Data Pipeline, UX Design, Typescript, C\#
 
 export const experience: TimelineItem[] = [
   {
-    date: 'March 2010 - Present',
-    location: 'Awesome Development Company',
-    title: 'Senior UX Engineer',
+    date: 'May 2024 - Present',
+    location: 'University of Michigan',
+    title: 'Robotics Engineer',
     content: (
       <p>
-        Describe work, special projects, notable achievements, what technologies you have been working with, and
-        anything else that would be useful for an employer to know.
+        I have designed and built the Robot Interprocess eXchange (RIX), a full robot operating
+        system modeled after ROS that lets undergraduate students create and test robotics applications in the
+        classroom. I have maintained large software projects by creating modular, testable interfaces and integrating
+        unit testing frameworks to ensure reliability and streamline automated grading for instructors. I also mentored
+        several teams of interns over two summers, guiding them through robotics software and firmware projects from
+        concept to implementation.
       </p>
     ),
   },
   {
-    date: 'March 2007 - February 2010',
-    location: 'Garage Startup Studio',
-    title: 'Junior bug fixer',
+    date: 'May 2023 - August 2023',
+    location: 'Ford Motor Company',
+    title: 'Low-Speed Autonomy Intern',
     content: (
       <p>
-        Describe work, special projects, notable achievements, what technologies you have been working with, and
-        anything else that would be useful for an employer to know.
+        I engineered a high-performance data pipeline for surround view camera systems, enabling efficient neural
+        network training and validation. By leveraging multi-threading, I accelerated the transformation of compressed
+        images into pixel arrays for concurrent processing. I also optimized color correction algorithms in Python
+        through vectorized DSP techniques, significantly improving computational efficiency.
+      </p>
+    ),
+  },
+  {
+    date: 'January 2023 - December 2023',
+    location: 'Retrospect Technologies',
+    title: 'Student Researcher',
+    content: (
+      <p>
+        I collaborated with Perot-Jain TechLab at MCity to evaluate and quantify autonomous vehicle risk metrics. This
+        involved designing high-risk driving scenarios for experimental validation at the MCity test facility and
+        collecting RTK-GPS data from autonomous vehicles using Dataspeed NavRoute to provide empirical support for risk
+        analyses.
+      </p>
+    ),
+  },
+  {
+    date: 'May 2022 - April 2023',
+    location: 'Link Engineering',
+    title: 'Software Engineer Intern',
+    content: (
+      <p>
+        I enhanced Link's database platform by integrating support for Python script uploads using IronPython, enabling 
+        custom analytics. I also built a TypeScript linear algebra library specifically for computer graphics 
+        applications and developed a flexible API to convert CSV files into Link's data format, improving usability and
+        supporting a wide range of customer datasets.
+      </p>
+    ),
+  },
+  {
+    date: 'May 2021 - April 2024',
+    location: 'University of Michigan',
+    title: 'Instructional Aide',
+    content: (
+      <p>
+        I developed asynchronous APIs for mobile robots, enabling undergraduate students to implement SLAM, motion
+        planning, and computer vision algorithms. I designed MCU-based PCBs to reduce robot cost and offload processing
+        to the cloud, and authored firmware to integrate data from LiDAR, cameras, IMUs, and wheel encoders into the
+        mobile robot ecosystem.
       </p>
     ),
   },
 ];
-
-/**
- * Testimonial section
- */
-export const testimonial: TestimonialSection = {
-  imageSrc: testimonialImage,
-  testimonials: [
-    {
-      name: 'John Doe',
-      text: 'Use this as an opportunity to promote what it is like to work with you. High value testimonials include ones from current or past co-workers, managers, or from happy clients.',
-      image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/169.jpg',
-    },
-    {
-      name: 'Jane Doe',
-      text: 'Here you should write some nice things that someone has said about you. Encourage them to be specific and include important details (notes about a project you were on together, impressive quality produced, etc).',
-      image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/14.jpg',
-    },
-    {
-      name: 'Someone else',
-      text: 'Add several of these, and keep them as fresh as possible, but be sure to focus on quality testimonials with strong highlights of your skills/work ethic.',
-      image: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/69.jpg',
-    },
-  ],
-};
 
 /**
  * Contact section
@@ -336,27 +311,22 @@ export const testimonial: TestimonialSection = {
 
 export const contact: ContactSection = {
   headerText: 'Get in touch.',
-  description: 'Here is a good spot for a message to your readers to let them know how best to reach out to you.',
+  description: 'Feel free to reach out!',
   items: [
     {
       type: ContactType.Email,
-      text: 'reachout@timbaker.me',
-      href: 'mailto:reachout@timbaker.me',
-    },
-    {
-      type: ContactType.Location,
-      text: 'Victoria BC, Canada',
-      href: 'https://www.google.ca/maps/place/Victoria,+BC/@48.4262362,-123.376775,14z',
+      text: 'riopellebroderick@gmail.com',
+      href: 'mailto:riopellebroderick@gmail.com',
     },
     {
       type: ContactType.Instagram,
-      text: '@tbakerx',
-      href: 'https://www.instagram.com/tbakerx/',
+      text: '@broderick.riopelle',
+      href: 'https://www.instagram.com/broderick.riopelle/',
     },
     {
       type: ContactType.Github,
-      text: 'tbakerx',
-      href: 'https://github.com/tbakerx',
+      text: 'broderio',
+      href: 'https://github.com/broderio',
     },
   ],
 };
@@ -365,9 +335,8 @@ export const contact: ContactSection = {
  * Social items
  */
 export const socialLinks: Social[] = [
-  {label: 'Github', Icon: GithubIcon, href: 'https://github.com/tbakerx'},
-  {label: 'Stack Overflow', Icon: StackOverflowIcon, href: 'https://stackoverflow.com/users/8553186/tim-baker'},
-  {label: 'LinkedIn', Icon: LinkedInIcon, href: 'https://www.linkedin.com/in/timbakerx/'},
-  {label: 'Instagram', Icon: InstagramIcon, href: 'https://www.instagram.com/reactresume/'},
-  {label: 'Twitter', Icon: TwitterIcon, href: 'https://twitter.com/TimBakerx'},
+  { label: 'Github', Icon: GithubIcon, href: 'https://github.com/broderio' },
+  { label: 'LinkedIn', Icon: LinkedInIcon, href: 'https://www.linkedin.com/in/broderick-riopelle/' },
+  { label: 'Instagram', Icon: InstagramIcon, href: 'https://www.instagram.com/broderick.riopelle/' },
+  { label: 'X', Icon: XIcon, href: 'https://x.com/broderickr00' },
 ];

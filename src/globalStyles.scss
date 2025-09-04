@@ -12,6 +12,36 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .achievements-title {
+    font-weight: bold;
+    margin-top: 1rem; /* Adds space above the title */
+    font-size: 1.1rem; /* Slightly larger font size */
+  }
+  
+  .achievements-list {
+    padding-left: 1.5rem; /* Indent the list */
+    list-style-type: disc; /* Default bullet points */
+    margin-top: 0.5rem; /* Adds some space above the list */
+  }
+  
+  .achievements-list li {
+    margin-bottom: 0.5rem; /* Space between list items */
+  }
+  
+  .link-style {
+    color: #3c86a3; /* Change the link color to an orange hue (or any color you prefer) */
+    text-decoration: none; /* Remove underline by default */
+    
+    &:hover {
+      text-decoration: underline; /* Underline the link when hovered */
+      color: #3c86a3; /* Darker orange color when hovered */
+    }
+  
+    &:active {
+      color: #217394; /* Even darker color when the link is clicked */
+    }
+  }
 }
 
 @supports (-webkit-touch-callout: none) {

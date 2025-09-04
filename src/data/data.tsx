@@ -93,8 +93,9 @@ export const heroData: Hero = {
  */
 export const aboutData: About = {
   profileImageSrc: profilepic,
-  description: `I'm an engineer interested in developing impactful solutions to help uplift the communities around me. I
-  enjoy traveling to national parks, watching Lion's football, and making homemade bagels.
+  description: `I'm an engineer interested in developing impactful solutions to help uplift the communities around me.
+  I aim to develop intelligent systems that enhance human capability and safety through thoughtful design and robust 
+  engineering. I enjoy traveling to national parks, watching Lion's football, and making homemade bagels.
   `,
   aboutItems: [
     {label: 'Location', text: 'Ann Arbor, MI', Icon: MapIcon},
@@ -137,7 +138,17 @@ export const skills: SkillGroup[] = [
       {name: 'GPU Programming', level: 7},
       {name: 'Digital Signal Processing', level: 6},
     ],
-  }
+  },
+  {
+    name: 'Tools & Middleware',
+    skills: [
+      {name: 'FreeRTOS', level: 10},
+      {name: 'ROS / ROS2', level: 9},
+      {name: 'LCM', level: 9},
+      {name: 'Docker', level: 8},
+      {name: 'Git', level: 10},
+    ],
+  },
 ];
 
 
@@ -221,12 +232,30 @@ export const education: TimelineItem[] = [
     date: 'May 2024',
     location: 'University of Michigan',
     title: 'BSE in Computer Engineering',
-    content: <p>I attended the University of Michigan from August 2020 through May 2024. My coursework focused on
-      embedded systems, computer vision, and autonomous robotics. I was a member of the Perot Jain TechLab at MCity
-      2023 cohort and the Michigander EV & Mobility Scholars Program.
-    </p>,
+    content: (
+      <>
+        <p>
+          I attended the University of Michigan from August 2020 through May 2024. My coursework focused on
+          embedded systems, computer vision, and autonomous robotics.
+        </p>
+        <p className="achievements-title">Achievements:</p>
+        <ul className="achievements-list">
+          <li>First generation college student</li>
+          <li>Selected for <a 
+            href="https://cfe.umich.edu/launch/perot-jain-techlab-series/pjtl-at-mcity/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-style">
+            Perot Jain TechLab at Mcity
+          </a> – a competitive autonomous mobility research cohort</li>
+          <li>Named Michigander EV & Mobility Scholar for excellence in emerging transportation technologies</li>
+        </ul>
+      </>
+    ),
   }
 ];
+
+
 
 // ### Software Engineer Intern, Link Engineering <span class="spacer"></span> May 2022 &mdash; April 2023
 // - Integrated support for Python script uploads for custom analytics on Link's database platform using IronPython

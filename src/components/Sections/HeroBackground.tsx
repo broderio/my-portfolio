@@ -1,6 +1,5 @@
 import {Canvas, useFrame, useThree} from "@react-three/fiber";
-import {parse} from "mathjs";
-import {memo, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {FC, memo, RefObject,useMemo, useRef} from "react";
 import * as THREE from "three";
 
 // =========================================================
@@ -20,13 +19,17 @@ const SphereField = memo(
         resetTrigger,
         noise,
         friction,
+        startTime,
+        canvasRef
     }: {
-        radialFn: (x: number) => number;
-        tangentFn: (x: number) => number;
-        pointer: React.MutableRefObject<THREE.Vector2>;
+        radialFn: (x: number, t: number) => number;
+        tangentFn: (x: number, t: number) => number;
+        pointer: React.MutableRefObject<THREE.Vector2 | null>;
         resetTrigger: number;
         noise: number;
         friction: number;
+        startTime: React.MutableRefObject<number | null>;
+        canvasRef: RefObject<HTMLCanvasElement>;
     }) => {
         const meshRef = useRef<THREE.InstancedMesh>(null);
         const raycaster = useRef(new THREE.Raycaster());
@@ -35,10 +38,8 @@ const SphereField = memo(
 
         const {camera, viewport} = useThree();
 
-        // Positions: regenerated when resetTrigger changes
         const positions = useMemo(() => {
             void resetTrigger;
-
             return Array.from({length: SPHERE_COUNT}, () =>
                 new THREE.Vector3(
                     (Math.random() - 0.5) * viewport.width,
@@ -52,14 +53,30 @@ const SphereField = memo(
             () => Array.from({length: SPHERE_COUNT}, () => new THREE.Vector3()),
             []
         );
-
-        // =========================================================
-        // Frame Loop
-        // =========================================================
         useFrame(() => {
+            if (!canvasRef.current) return;
             if (!meshRef.current) return;
 
-            raycaster.current.setFromCamera(pointer.current, camera);
+            if (!pointer.current) {
+                const {clientWidth, clientHeight} = canvasRef.current;
+                pointer.current = new THREE.Vector2(clientWidth / 2, clientHeight / 2);
+                console.log(pointer.current)
+            }
+
+            const t =
+                startTime.current !== null
+                    ? (performance.now() - startTime.current) / 1000
+                    : 0;
+
+            // Convert pointer from screen coords to NDC [-1, 1]
+            const ndcPointer = new THREE.Vector2(
+                (pointer.current.x / window.innerWidth) * 2 - 1,
+                -(pointer.current.y / window.innerHeight) * 2 + 1
+            );
+
+            // console.log(ndcPointer.x, ndcPointer.y)
+
+            raycaster.current.setFromCamera(ndcPointer, camera);
             raycaster.current.ray.intersectPlane(
                 new THREE.Plane(new THREE.Vector3(0, 0, 1), 0),
                 mouseWorld.current
@@ -73,16 +90,17 @@ const SphereField = memo(
                 const tangent = new THREE.Vector3(-direction.y, direction.x, 0);
 
                 const dist = mouseWorld.current.distanceTo(current);
-                const accelRadial = radialFn(dist);
-                const accelTangent = tangentFn(dist);
-                
+                const accelRadial = radialFn(dist, t);
+                const accelTangent = tangentFn(dist, t);
+
                 velocity.addScaledVector(direction, accelRadial * 0.01);
                 velocity.addScaledVector(tangent, accelTangent * 0.01);
-                
-                // Apply random noise
+
+                // Random noise
                 velocity.x += (Math.random() - 0.5) * noise * 0.1;
                 velocity.y += (Math.random() - 0.5) * noise * 0.1;
-                
+
+                // Friction
                 velocity.addScaledVector(velocity, -friction);
 
                 current.add(velocity);
@@ -94,6 +112,7 @@ const SphereField = memo(
 
             meshRef.current.instanceMatrix.needsUpdate = true;
         });
+
 
         return (
             <instancedMesh args={[undefined, undefined, SPHERE_COUNT]} ref={meshRef}>
@@ -107,7 +126,27 @@ const SphereField = memo(
 // =========================================================
 // Hero Background Component
 // =========================================================
-const HeroBackground = memo(() => {
+type HeroBackgroundProps = {
+    friction: number;
+    noise: number;
+    pointer: React.MutableRefObject<THREE.Vector2 | null>;
+    radialFn: (x: number, t: number) => number;
+    tangentFn: (x: number, t: number) => number;
+    resetTrigger: number;
+    startTime: React.MutableRefObject<number | null>;
+    canvasRef: RefObject<HTMLCanvasElement>;
+};
+
+const HeroBackground: FC<HeroBackgroundProps> = memo(({
+    friction,
+    noise,
+    pointer,
+    radialFn,
+    tangentFn,
+    resetTrigger,
+    startTime,
+    canvasRef,
+}) => {
     const cameraConfig = useMemo(
         () => ({
             position: [0, 0, 30] as [number, number, number],
@@ -116,173 +155,26 @@ const HeroBackground = memo(() => {
         []
     );
 
-    const [showControls, setShowControls] = useState(false);
-    const [radialExpr, setRadialExpr] = useState("1 / x");
-    const [tangentExpr, setTangentExpr] = useState("0");
-
-    const [radialFn, setRadialFn] = useState<(x: number) => number>(() => (x: number) => 1 / x);
-    const [tangentFn, setTangentFn] = useState<(x: number) => number>(() => () => 0);
-    const [noise, setNoise] = useState(0.05);      // random acceleration
-    const [friction, setFriction] = useState(0.05); // damping multiplier
-
-    // Reset trigger increments to regenerate spheres
-    const [resetTrigger, setResetTrigger] = useState(0);
-
-    // Shared pointer ref
-    const pointer = useRef(new THREE.Vector2());
-    const isClicked = useRef(false); // <-- useRef instead of let
-
-
-    // Toggle control panel with backtick
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "`") {
-                setShowControls((prev) => !prev);
-            }
-        };
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, []);
-
-    // Apply math functions
-    const handleApply = useCallback(() => {
-        try {
-            const radialParsed = parse(radialExpr);
-            const tangentParsed = parse(tangentExpr);
-
-            setRadialFn(() => (x: number) => radialParsed.evaluate({x}));
-            setTangentFn(() => (x: number) => tangentParsed.evaluate({x}));
-        } catch (e) {
-            console.error("Invalid function expression", e);
-        }
-    }, [radialExpr, tangentExpr]);
-
-    // Reset spheres
-    const handleReset = useCallback(() => {
-        setResetTrigger((n) => n + 1);
-    }, []);
-
-    const handleCanvasMouseDown = useCallback(
-        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            isClicked.current = true; // <-- ref current
-            const rect = (event.target as HTMLCanvasElement).getBoundingClientRect();
-            const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-            const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-            pointer.current.set(x, y);
-        },
-        []
-    );
-
-    const handleCanvasMouseUp = useCallback(
-        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            void event;
-            isClicked.current = false; // <-- ref current
-        },
-        []
-    );
-
-    const handleCanvasMouseMove = useCallback(
-        (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            if (isClicked.current) { // <-- ref current
-                const rect = (event.target as HTMLCanvasElement).getBoundingClientRect();
-                const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-                pointer.current.set(x, y);
-            }
-        },
-        []
-    );
-
     return (
-        <div className="hero-container">
-            <Canvas camera={cameraConfig} onPointerDown={handleCanvasMouseDown} onPointerMove={handleCanvasMouseMove} onPointerUp={handleCanvasMouseUp}>
-                <ambientLight intensity={1.2} />
-                <pointLight position={[10, 10, 10]} />
-                <SphereField
-                    friction={friction}
-                    noise={noise}
-                    pointer={pointer}
-                    radialFn={radialFn}
-                    resetTrigger={resetTrigger}
-                    tangentFn={tangentFn}
-                />
-
-            </Canvas>
-
-            {showControls && (
-                <div className="absolute top-16 right-6 z-20 px-4 lg:px-0">
-                    <div className="flex w-full max-w-sm flex-col gap-y-4 rounded-xl bg-gray-800/40 p-4 text-left shadow-lg backdrop-blur-sm">
-                        <h2 className="text-lg font-semibold text-white">Force Field Controls</h2>
-
-                        <div className="flex flex-col gap-y-2 sm:flex-row sm:gap-x-4 sm:gap-y-0">
-                            <label className="flex flex-col text-sm text-gray-200 w-full">
-                                Radial
-                                <input
-                                    className="mt-1 w-full rounded-md border border-gray-500 bg-gray-700/60 px-2 py-1 text-white focus:border-accent focus:ring-2 focus:ring-accent focus:outline-none"
-                                    onChange={(e) => setRadialExpr(e.target.value)}
-                                    value={radialExpr}
-                                />
-                            </label>
-
-                            <label className="flex flex-col text-sm text-gray-200 w-full">
-                                Tangential
-                                <input
-                                    className="mt-1 w-full rounded-md border border-gray-500 bg-gray-700/60 px-2 py-1 text-white focus:border-accent focus:ring-2 focus:ring-accent focus:outline-none"
-                                    onChange={(e) => setTangentExpr(e.target.value)}
-                                    value={tangentExpr}
-                                />
-                            </label>
-                        </div>
-
-                        <div className="flex w-full justify-between">
-                            <button
-                                className="rounded-full border-2 border-accent px-4 py-2 text-sm font-medium text-white hover:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ring-offset-gray-700/80 sm:text-base"
-                                onClick={handleApply}
-                            >
-                                Apply
-                            </button>
-                            <button
-                                className="rounded-full border-2 border-white px-4 py-2 text-sm font-medium text-white hover:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ring-offset-gray-700/80 sm:text-base"
-                                onClick={handleReset}
-                            >
-                                Reset
-                            </button>
-                        </div>
-
-                        <div className="flex flex-col gap-y-4">
-                            <label className="flex flex-col text-left text-sm text-gray-200">
-                                Noise
-                                <input
-                                    className="mt-1 w-full accent-accent"
-                                    max="1"
-                                    min="0"
-                                    onChange={(e) => setNoise(parseFloat(e.target.value))}
-                                    step="0.05"
-                                    type="range"
-                                    value={noise}
-                                />
-                            </label>
-
-                            <label className="flex flex-col text-left text-sm text-gray-200">
-                                Friction
-                                <input
-                                    className="mt-1 w-full accent-accent"
-                                    max="1"
-                                    min="0"
-                                    onChange={(e) => setFriction(parseFloat(e.target.value))}
-                                    step="0.05"
-                                    type="range"
-                                    value={friction}
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-
-        </div>
+        <Canvas
+            camera={cameraConfig}
+            ref={canvasRef}
+        >
+            <ambientLight intensity={1.2} />
+            <pointLight position={[10, 10, 10]} />
+            <SphereField
+                canvasRef={canvasRef}
+                friction={friction}
+                noise={noise}
+                pointer={pointer}
+                radialFn={radialFn}
+                resetTrigger={resetTrigger}
+                startTime={startTime}
+                tangentFn={tangentFn}
+            />
+        </Canvas>
     );
 });
 
+HeroBackground.displayName = "HeroBackground";
 export default HeroBackground;

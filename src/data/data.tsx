@@ -10,7 +10,7 @@ import GithubIcon from '../components/Icon/GithubIcon';
 import InstagramIcon from '../components/Icon/InstagramIcon';
 import LinkedInIcon from '../components/Icon/LinkedInIcon';
 import XIcon from '../components/Icon/XIcon';
-import heroImage from '../images/header-background.jpg';
+// import heroImage from '../images/header-background.jpg';
 import porfolioImage1 from '../images/portfolio/portfolio-1.jpg';
 import porfolioImage2 from '../images/portfolio/portfolio-2.jpg';
 import porfolioImage3 from '../images/portfolio/portfolio-3.jpg';
@@ -62,7 +62,7 @@ export type SectionId = (typeof SectionId)[keyof typeof SectionId];
  * Hero section
  */
 export const heroData: Hero = {
-  imageSrc: heroImage,
+  // imageSrc: heroImage,
   name: `I'm Broderick Riopelle`,
   description: (
     <>
@@ -241,11 +241,11 @@ export const education: TimelineItem[] = [
         <p className="achievements-title">Achievements:</p>
         <ul className="achievements-list">
           <li>First generation college student</li>
-          <li>Selected for <a 
+          <li>Selected for <a
+            className="link-style"
             href="https://cfe.umich.edu/launch/perot-jain-techlab-series/pjtl-at-mcity/"
-            target="_blank"
             rel="noopener noreferrer"
-            className="link-style">
+            target="_blank">
             Perot Jain TechLab at Mcity
           </a> – a competitive autonomous mobility research cohort</li>
           <li>Named Michigander EV & Mobility Scholar for excellence in emerging transportation technologies</li>
@@ -312,8 +312,8 @@ export const experience: TimelineItem[] = [
     title: 'Software Engineer Intern',
     content: (
       <p>
-        I enhanced Link's database platform by integrating support for Python script uploads using IronPython, enabling 
-        custom analytics. I also built a TypeScript linear algebra library specifically for computer graphics 
+        I enhanced Link's database platform by integrating support for Python script uploads using IronPython, enabling
+        custom analytics. I also built a TypeScript linear algebra library specifically for computer graphics
         applications and developed a flexible API to convert CSV files into Link's data format, improving usability and
         supporting a wide range of customer datasets.
       </p>

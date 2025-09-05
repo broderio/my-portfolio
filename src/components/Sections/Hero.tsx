@@ -17,10 +17,10 @@ const Hero: FC = memo(() => {
   // =========================================================
   // State for physics
   // =========================================================
-  const [radialExpr, setRadialExpr] = useState('sin(2t - x)');
+  const [radialExpr, setRadialExpr] = useState('sin(t) + sin(x)');
   const [tangentExpr, setTangentExpr] = useState('0');
 
-  const [radialFn, setRadialFn] = useState<(x: number, t: number) => number>(() => (x: number, t: number) => Math.sin(2*t - x));
+  const [radialFn, setRadialFn] = useState<(x: number, t: number) => number>(() => (x: number, t: number) => Math.sin(t) + Math.sin(x));
   const [tangentFn, setTangentFn] = useState<(x: number, t: number) => number>(() => () => 0);
 
   const [noise, setNoise] = useState(0.5);

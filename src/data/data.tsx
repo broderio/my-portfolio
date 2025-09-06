@@ -95,7 +95,7 @@ export const aboutData: About = {
   profileImageSrc: profilepic,
   description: `I'm an engineer interested in developing impactful solutions to help uplift the communities around me.
   I aim to develop intelligent systems that enhance human capability and safety through thoughtful design and robust 
-  engineering. I enjoy traveling to national parks, watching Lion's football, and making homemade bagels.
+  engineering. I enjoy traveling to national parks, watching Lions football, and making homemade bagels.
   `,
   aboutItems: [
     {label: 'Location', text: 'Ann Arbor, MI', Icon: MapIcon},
@@ -325,10 +325,12 @@ export const experience: TimelineItem[] = [
     title: 'Instructional Aide',
     content: (
       <p>
-        I developed asynchronous APIs for mobile robots, enabling undergraduate students to implement SLAM, motion
+        I developed features for  APIs for mobile robots, enabling undergraduate students to implement SLAM, motion
         planning, and computer vision algorithms. I designed MCU-based PCBs to reduce robot cost and offload processing
         to the cloud, and authored firmware to integrate data from LiDAR, cameras, IMUs, and wheel encoders into the
-        mobile robot ecosystem.
+        mobile robot ecosystem. In addition to these development efforts, I provided instructional support for students 
+        enrolled in the HelloRob course at the University of Michigan, Bereas College, Morehouse College, and Howard 
+        University.
       </p>
     ),
   },
